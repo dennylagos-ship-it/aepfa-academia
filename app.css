@@ -239,3 +239,19 @@ td .who small { display: block; color: var(--mute); }
 .mod-head input { flex: 1; min-width: 0; }
 .mod-head .row-actions, .les .row-actions { flex-wrap: nowrap; }
 @media (max-width: 560px) { .les { flex-wrap: wrap; } .les .row-actions { width: 100%; justify-content: flex-start; padding-left: 46px; } }
+.main-wrap, .editor > *, .player > * { min-width: 0; }
+@media (max-width: 1100px) { .player .lesson { order: -1; } .syl { margin-top: 4px; } }
+@media (max-width: 560px) {
+  .main { padding: 18px 14px 40px; }
+  .page-head > div:last-child { width: 100%; }
+  .page-head .btn { flex: 1 1 auto; }
+  .mod-head { flex-wrap: wrap; }
+  .mod-head input { flex-basis: calc(100% - 40px); }
+  .mod-head .row-actions { width: 100%; justify-content: flex-end; }
+  .lesson-foot { flex-direction: column; align-items: stretch; }
+  .lesson-foot .nav-btns { justify-content: space-between; }
+  .stat b { font-size: 2.1rem; }
+  .cert { aspect-ratio: auto; min-height: 70svh; padding: 9% 7%; gap: 18px; }
+  .cert-bot { grid-template-columns: 1fr; gap: 14px; }
+  .modal-body { padding: 18px; }
+}
