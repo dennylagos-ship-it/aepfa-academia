@@ -31,7 +31,9 @@
       whatsapp: "584247714625",
       email: "contacto@aepfa.edu.ve",
       city: "Venezuela",
-      hours: "Lunes a sábado · 8:00 a. m. – 5:00 p. m."
+      hours: "Lunes a sábado · 8:00 a. m. – 5:00 p. m.",
+      // Vigencia de los certificados, en años (0 = sin vencimiento)
+      certYears: 2
     },
     icons: ICONS,
     categories: ["Emergencias", "Enfermería", "Laboratorio", "Farmacia", "Bioseguridad", "Cuidados", "Diagnóstico", "Gestión en salud"],

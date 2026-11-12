@@ -406,21 +406,21 @@
         var p = A.progressOf(u.id, c); if (p.pct < 100) return;
         var last = Math.max.apply(null, A.allLessons(c).map(function (l) { return p.map[l.id] || 0; }));
         var inst = A.userById(c.instructorId), d = CERT.build(u, c, last, inst ? inst.name : "");
-        rows.push({ d: d, url: CERT.verifyURL(d) });
+        rows.push({ d: d, url: CERT.verifyURL(d), c: c });
       });
     });
     rows.sort(function (a, b) { return b.d.d - a.d.d; });
     main.innerHTML = '<div class="page-head"><div><h1>Certificados</h1><p>Se emiten automáticamente cuando el estudiante completa el 100 % del programa.</p></div></div>' +
-      (rows.length ? '<div class="table-wrap"><table><thead><tr><th>Titular</th><th>Programa</th><th>Emisión</th><th>Código</th><th></th></tr></thead><tbody>' +
+      (rows.length ? '<div class="table-wrap"><table><thead><tr><th>Titular</th><th>Programa</th><th>Emisión</th><th>Vigencia</th><th>Código</th><th></th></tr></thead><tbody>' +
         rows.map(function (r, i) {
-          return "<tr><td><div class=\"who\"><span class=\"avatar\">" + UI.initials(r.d.n) + "</span><div><strong>" + A.esc(r.d.n) + "</strong><small>" + A.esc(r.d.ci || "") + "</small></div></div></td><td>" + A.esc(r.d.c) + "</td><td><small>" + CERT.fdate(r.d.d) + "</small></td><td><code style=\"color:var(--wine);font-weight:700\">" + A.esc(r.d.code) + "</code></td>" +
+          return "<tr><td><div class=\"who\"><span class=\"avatar\">" + UI.initials(r.d.n) + "</span><div><strong>" + A.esc(r.d.n) + "</strong><small>" + A.esc(r.d.ci || "") + "</small></div></div></td><td>" + A.esc(r.d.c) + "</td><td><small>" + CERT.fdate(r.d.d) + "</small></td><td>" + (CERT.expiry(r.d) ? (CERT.isExpired(r.d) ? '<span class="pill" style="background:rgba(163,38,46,.1);color:var(--err)">Vencido</span>' : '<span class="pill ok">Hasta ' + CERT.fdate(CERT.expiry(r.d)) + "</span>") : '<span class="pill">Sin vencimiento</span>') + "</td><td><code style=\"color:var(--wine);font-weight:700\">" + A.esc(r.d.code) + "</code></td>" +
             '<td><div class="row-actions"><button class="btn btn-line btn-sm" data-see="' + i + '">Ver</button><a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="' + A.esc(r.url) + '">Verificar ↗</a></div></td></tr>';
         }).join("") + "</tbody></table></div>" :
         '<div class="empty">' + A.icon("shield") + "<h3>Aún no hay certificados emitidos</h3><p>Aparecerán aquí cuando un estudiante complete un programa.</p></div>");
     main.querySelectorAll("[data-see]").forEach(function (b) {
       b.addEventListener("click", function () {
         var r = rows[+b.dataset.see];
-        var d = UI.modal("Certificado", '<div class="cert-wrap">' + CERT.html(r.d, r.url) + "</div>", '<a class="btn btn-wine btn-sm" target="_blank" rel="noopener" href="' + A.esc(r.url) + '">Abrir verificación</a>');
+        var d = UI.modal("Certificado", '<div class="cert-wrap">' + CERT.html(r.d, r.url, r.c) + "</div>", '<a class="btn btn-wine btn-sm" target="_blank" rel="noopener" href="' + A.esc(r.url) + '">Abrir verificación</a>');
         d.style.width = "min(1060px, calc(100% - 24px))";
       });
     });

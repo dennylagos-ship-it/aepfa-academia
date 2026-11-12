@@ -235,11 +235,11 @@
     var data = CERT.build(user, c, last, inst ? inst.name : ""), url = CERT.verifyURL(data);
     main.innerHTML =
       '<p class="crumbs"><a href="#/">Mis cursos</a> / <a href="#/curso/' + c.id + '">' + A.esc(c.title) + "</a> / Certificado</p>" +
-      '<div class="cert-wrap">' + CERT.html(data, url) +
-      '<div class="cert-actions"><button class="btn btn-wine" data-print>Imprimir o guardar PDF</button>' +
+      '<div class="cert-wrap">' + CERT.html(data, url, c) + '</div>' +
+      '<div class="cert-actions" style="margin-top:22px"><button class="btn btn-wine" data-print>Imprimir o guardar PDF</button>' +
       '<button class="btn btn-line" data-copy>Copiar enlace de verificación</button>' +
       '<a class="btn btn-line" target="_blank" rel="noopener" href="' + A.waLink("Mi certificado AEPFA en «" + c.title + "». Verificación en línea: " + url).replace("wa.me/" + CFG.brand.whatsapp, "wa.me/") + '">Compartir por WhatsApp</a>' +
-      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="' + A.esc(url) + '">Probar verificación ↗</a></div></div>';
+      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="' + A.esc(url) + '">Probar verificación ↗</a></div>';
     main.querySelector("[data-print]").addEventListener("click", function () { window.print(); });
     main.querySelector("[data-copy]").addEventListener("click", function () {
       (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { A.toast("Enlace copiado.", "ok"); }, function () { prompt("Copie el enlace:", url); });
