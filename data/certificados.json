@@ -1,0 +1,18 @@
+{
+ "_nota": "Registro público de certificados emitidos (modo demo). En producción se consulta la base de datos.",
+ "certificados": [
+  {
+   "n": "Carlos Méndez",
+   "ci": "V-20.000.000",
+   "c": "Primeros Auxilios y RCP Básico",
+   "h": 40,
+   "d": 1794521563,
+   "u": "u-est",
+   "k": "c-rcp",
+   "t": "Lcda. María F. Rojas",
+   "m": "Mixta",
+   "v": 2,
+   "x": "AEPFA-GHOUT4-MKMSVK"
+  }
+ ]
+}

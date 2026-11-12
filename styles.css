@@ -266,7 +266,7 @@ em { font-style: italic; }
 .aval-quote { margin: 0; max-width: 980px; }
 .aval-quote blockquote { margin: 0; font-family: var(--f-display); font-style: italic; font-weight: 500; font-size: clamp(1.8rem, 3.6vw, 3.1rem); line-height: 1.15; color: var(--ink); text-indent: -.4em; }
 .aval-quote figcaption { margin-top: 20px; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; color: var(--wine); font-weight: 700; }
-.aval-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border-top: 1px solid var(--ink); }
+.aval-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--ink); }
 .aval-item { padding: 28px 28px 0 0; display: grid; gap: 10px; align-content: start; }
 .aval-item + .aval-item { padding-left: 28px; border-left: 1px solid var(--line); }
 .aval-k { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); font-weight: 700; }
@@ -343,7 +343,7 @@ input.invalid, select.invalid { border-color: var(--err); }
   .enroll { grid-template-columns: 1fr; }
   .enroll-copy { position: static; }
 }
-@media (max-width: 980px) {
+@media (max-width: 1120px) {
   .nav-links { position: fixed; top: 72px; left: 0; right: 0; flex-direction: column; gap: 0; padding: 10px; border-radius: 22px; background: var(--paper); box-shadow: var(--shadow); opacity: 0; visibility: hidden; transform: translateY(-8px); transition: .35s var(--ease-out); }
   .nav-links a { padding: 14px 16px; font-size: 1.05rem; }
   .nav.is-open .nav-links { opacity: 1; visibility: visible; transform: none; }
@@ -377,3 +377,9 @@ label { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .4em;
 label > input:not([type=radio]):not([type=checkbox]), label > select, label > textarea, label > .hint { flex-basis: 100%; }
 @media (max-width: 1024px) { .hero-seal { width: min(360px, 74%); } }
 @media (max-width: 560px) { .hero { padding-top: 104px; gap: 18px; } .hero-seal { width: 66%; } .seal-card--a { left: -18%; } .seal-card--b { right: -18%; } }
+
+@media (max-width: 1200px) and (min-width: 821px) {
+  .aval-grid { grid-template-columns: 1fr 1fr; }
+  .aval-item:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .aval-item:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 24px; }
+}

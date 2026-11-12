@@ -33,13 +33,21 @@
     var compact = { n: p.n, ci: p.ci, c: p.c, h: p.h, d: p.d, u: p.u, k: p.k, t: p.t, m: p.m, v: p.v, x: p.code };
     return baseURL() + "verificar.html#" + b64e(JSON.stringify(compact));
   }
+  function validate(o) {
+    if (!o || !o.x) return { ok: false, data: null };
+    var ok = ("AEPFA-" + sign(o)) === o.x;
+    o.code = o.x;
+    return { ok: ok, data: o };
+  }
   function parse(hash) {
-    try {
-      var o = JSON.parse(b64d(String(hash).replace(/^#/, "")));
-      var ok = ("AEPFA-" + sign(o)) === o.x;
-      o.code = o.x;
-      return { ok: ok, data: o };
-    } catch (e) { return { ok: false, data: null }; }
+    try { return validate(JSON.parse(b64d(String(hash).replace(/^#/, "")))); }
+    catch (e) { return { ok: false, data: null }; }
+  }
+  function compact(p) { return { n: p.n, ci: p.ci, c: p.c, h: p.h, d: p.d, u: p.u, k: p.k, t: p.t, m: p.m, v: p.v, x: p.code }; }
+  function normCode(c) {
+    c = String(c || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+    if (c.indexOf("AEPFA") === 0) c = c.slice(5);
+    return c.length === 12 ? "AEPFA-" + c.slice(0, 6) + "-" + c.slice(6) : "";
   }
   /* Vencimiento: fecha de emisión + años de vigencia (en segundos) */
   function expiry(p) {
@@ -67,7 +75,7 @@
     return '<div class="cx cx-front">' +
       '<aside class="cx-side">' +
         '<div class="cx-brand"><img src="assets/img/logo-medallon.webp" alt="" /><strong>AEPFA</strong><span>Academia de Educación Permanente<br />y Fortalecimiento del Aprendizaje</span></div>' +
-        '<div class="cx-verify"><div class="cx-qr">' + qrSVG(url) + '</div><p>Escanee para verificar<br />la autenticidad en línea</p><code>' + esc(p.code) + "</code></div>" +
+        '<div class="cx-verify"><div class="cx-qr">' + qrSVG(url) + '</div><p>Escanee el QR o ingrese este código<br />en «Verificar certificado» de la web</p><code>' + esc(p.code) + "</code></div>" +
         '<p class="cx-legal">RIF ' + esc(B.rif) + "<br />MPPE N.º " + esc(B.mppe) + "</p>" +
       "</aside>" +
       '<section class="cx-main">' +
@@ -129,5 +137,5 @@
 
   function html(p, url, course) { return front(p, url) + back(p, course); }
 
-  window.AEPFA_CERT = { build: build, verifyURL: verifyURL, parse: parse, qrSVG: qrSVG, html: html, expiry: expiry, isExpired: isExpired, front: front, back: back, fdate: fdate, esc: esc };
+  window.AEPFA_CERT = { build: build, validate: validate, compact: compact, normCode: normCode, verifyURL: verifyURL, parse: parse, qrSVG: qrSVG, html: html, expiry: expiry, isExpired: isExpired, front: front, back: back, fdate: fdate, esc: esc };
 })();

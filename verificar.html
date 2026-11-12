@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=20261112d" />
-  <link rel="stylesheet" href="app.css?v=20261112d" />
+  <link rel="stylesheet" href="styles.css?v=20261112f" />
+  <link rel="stylesheet" href="app.css?v=20261112f" />
 </head>
 <body class="app">
   <div class="verify">
@@ -20,14 +20,24 @@
       <div><strong>AEPFA</strong><small>Verificación de certificados</small></div>
       <a class="btn btn-line btn-sm" href="index.html">Ir a la web</a>
     </header>
-    <main class="verify-main" data-out>
-      <section class="verdict none"><span class="mark">?</span><div><h1>Verificación de certificados</h1><p>Escanee el código QR impreso en el certificado para comprobar su autenticidad.</p></div></section>
+    <main class="verify-main">
+      <section class="lookup">
+        <p class="eyebrow">Verificación en línea</p>
+        <h1>Compruebe la autenticidad de un certificado</h1>
+        <p>Escriba el código que aparece debajo del QR del certificado, o escanee el QR con la cámara de su teléfono.</p>
+        <form class="lookup-form" data-lookup>
+          <label class="sr" for="code">Código del certificado</label>
+          <input id="code" name="code" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="AEPFA-XXXXXX-XXXXXX" required />
+          <button class="btn btn-wine">Verificar</button>
+        </form>
+      </section>
+      <div data-out style="display:grid;gap:28px;scroll-margin-top:20px"></div>
     </main>
     <footer class="verify-foot">Academia de Educación Permanente y Fortalecimiento del Aprendizaje · RIF V-13147867-0 · MPPE N.º R02682509</footer>
   </div>
-  <script defer src="js/config.js?v=20261112d"></script>
-  <script defer src="lib/qrcode.js?v=20261112d"></script>
-  <script defer src="js/cert.js?v=20261112d"></script>
-  <script defer src="js/verificar.js?v=20261112d"></script>
+  <script defer src="js/config.js?v=20261112f"></script>
+  <script defer src="lib/qrcode.js?v=20261112f"></script>
+  <script defer src="js/cert.js?v=20261112f"></script>
+  <script defer src="js/verificar.js?v=20261112f"></script>
 </body>
 </html>

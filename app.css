@@ -337,3 +337,15 @@ td .who small { display: block; color: var(--mute); }
 .facts span { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mute); font-weight: 700; }
 .facts strong { font-size: 1.02rem; }
 .verify-foot { padding: 22px var(--pad); text-align: center; font-size: .82rem; color: var(--mute); border-top: 1px solid var(--line); }
+
+.lookup { display: grid; gap: 12px; text-align: center; justify-items: center; padding: clamp(24px, 4vw, 44px) clamp(18px, 4vw, 40px); border-radius: 24px; background: var(--wine-3); color: var(--paper); position: relative; overflow: hidden; }
+.lookup::before { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 80% at 80% 0%, rgba(110,26,38,.95), transparent 70%), radial-gradient(50% 70% at 0% 100%, rgba(180,138,60,.22), transparent 70%); }
+.lookup > * { position: relative; }
+.lookup .eyebrow { color: var(--gold-2); }
+.lookup h1 { font-family: var(--f-display); font-size: clamp(1.9rem, 3.6vw, 2.8rem); line-height: 1.05; max-width: 20ch; }
+.lookup p { color: rgba(244,238,227,.75); max-width: 52ch; }
+.lookup-form { display: flex; gap: 10px; width: min(560px, 100%); margin-top: 8px; }
+.lookup-form input { flex: 1; text-align: center; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; border: 0; padding: 1em; border-radius: 99px; color: var(--ink); }
+.lookup-form .btn { background: linear-gradient(135deg, var(--gold-2), var(--gold)); color: var(--wine-3); }
+.sr { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+@media (max-width: 560px) { .lookup-form { flex-direction: column; } }
