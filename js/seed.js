@@ -139,7 +139,7 @@
     ],
     progress: {
       "u-est": { "l-rcp-1": now - 17 * day, "l-rcp-2": now - 16 * day, "l-rcp-3": now - 12 * day, "l-bio-1": now - 5 * day },
-      "u-est2": { "l-fl-1": now - 7 * day }
+      "u-est2": { "l-fl-1": now - 7 * day, "l-fl-2": now - 6 * day, "l-fl-3": now - 5 * day, "l-fl-4": now - 4 * day }
     },
     leads: [
       { id: "ld-1", name: "José Gregorio Silva", phone: "0412-0000000", email: "jgsilva@correo.com", courseId: "c-enf", message: "¿Cuándo inicia la próxima cohorte?", date: now - 2 * day, status: "nuevo" }

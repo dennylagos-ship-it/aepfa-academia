@@ -223,11 +223,6 @@
   }
 
   /* ---------- Certificado ---------- */
-  function code(u, c) {
-    var s = u.id + "|" + c.id, h = 2166136261;
-    for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
-    return "AEPFA-" + (h >>> 0).toString(36).toUpperCase().padStart(7, "0");
-  }
   function viewCert(cid) {
     var c = A.courseById(cid); if (!c) return viewHome();
     var p = A.progressOf(user.id, c);
@@ -236,18 +231,19 @@
       return;
     }
     var last = Math.max.apply(null, A.allLessons(c).map(function (l) { return p.map[l.id] || 0; }));
-    var inst = A.userById(c.instructorId), B = CFG.brand;
+    var inst = A.userById(c.instructorId), CERT = window.AEPFA_CERT;
+    var data = CERT.build(user, c, last, inst ? inst.name : ""), url = CERT.verifyURL(data);
     main.innerHTML =
       '<p class="crumbs"><a href="#/">Mis cursos</a> / <a href="#/curso/' + c.id + '">' + A.esc(c.title) + "</a> / Certificado</p>" +
-      '<div class="cert-wrap"><div class="cert">' +
-        '<div class="cert-top"><img src="assets/img/logo-medallon.webp" alt="" /><p>' + A.esc(B.name) + "</p></div>" +
-        '<div class="cert-mid"><h2>Certificado de aprobación</h2><p>Se otorga el presente a</p><span class="who">' + A.esc(user.name) + "</span>" +
-          "<p>" + (user.cedula ? "C.I. " + A.esc(user.cedula) + ", " : "") + "por haber cursado y aprobado el programa <strong>" + A.esc(c.title) + "</strong>, con una duración de " + c.hours + " horas académicas, en modalidad " + A.esc(c.modality).toLowerCase() + ".</p></div>" +
-        '<div class="cert-bot"><div class="sig">' + A.esc(inst ? inst.name : "Docente") + "<br />Facilitador(a)</div>" +
-          "<div>Emitido el " + A.fmtDate(last) + "<br />Código: <code>" + code(user, c) + "</code><br />RIF " + B.rif + " · MPPE N.º " + B.mppe + "</div>" +
-          '<div class="sig">Dirección Académica<br />AEPFA</div></div>' +
-      "</div>" +
-      '<div style="display:flex;gap:10px"><button class="btn btn-wine" onclick="window.print()">Imprimir o guardar PDF</button><a class="btn btn-line" href="#/curso/' + c.id + '">Volver al curso</a></div></div>';
+      '<div class="cert-wrap">' + CERT.html(data, url) +
+      '<div class="cert-actions"><button class="btn btn-wine" data-print>Imprimir o guardar PDF</button>' +
+      '<button class="btn btn-line" data-copy>Copiar enlace de verificación</button>' +
+      '<a class="btn btn-line" target="_blank" rel="noopener" href="' + A.waLink("Mi certificado AEPFA en «" + c.title + "». Verificación en línea: " + url).replace("wa.me/" + CFG.brand.whatsapp, "wa.me/") + '">Compartir por WhatsApp</a>' +
+      '<a class="btn btn-ghost" target="_blank" rel="noopener" href="' + A.esc(url) + '">Probar verificación ↗</a></div></div>';
+    main.querySelector("[data-print]").addEventListener("click", function () { window.print(); });
+    main.querySelector("[data-copy]").addEventListener("click", function () {
+      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { A.toast("Enlace copiado.", "ok"); }, function () { prompt("Copie el enlace:", url); });
+    });
   }
 
   /* ---------- Perfil ---------- */
